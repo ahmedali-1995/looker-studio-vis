@@ -1,0 +1,118 @@
+═══════════════════════════════════════════════════════════════
+LOOKER STUDIO CUSTOM VISUALIZATION - SETUP INSTRUCTIONS
+═══════════════════════════════════════════════════════════════
+
+PROBLEM: You tried to use a GitHub blob URL which doesn't work!
+SOLUTION: Use raw URLs or GitHub Pages URLs instead.
+
+═══════════════════════════════════════════════════════════════
+QUICK SETUP (5 Minutes)
+═══════════════════════════════════════════════════════════════
+
+1. GO TO GITHUB
+   - Visit: https://github.com
+   - Create a new repository
+   - Make it PUBLIC (required)
+   - Name it: "looker-studio-viz"
+
+2. UPLOAD FILES
+   Upload these 4 files to your GitHub repository:
+   - manifest.json
+   - main.js
+   - styles.js
+   - index.html
+
+3. GET YOUR URLS
+   After uploading, your URLs will be:
+   
+   MANIFEST:
+   https://raw.githubusercontent.com/YOUR-USERNAME/looker-studio-viz/main/manifest.json
+   
+   MAIN.JS:
+   https://raw.githubusercontent.com/YOUR-USERNAME/looker-studio-viz/main/main.js
+   
+   STYLES.JS:
+   https://raw.githubusercontent.com/YOUR-USERNAME/looker-studio-viz/main/styles.js
+
+4. UPDATE MANIFEST.JSON
+   Open manifest.json in GitHub
+   Replace these lines:
+   
+   FROM:
+   "js_library": "https://your-username.github.io/repo-name/main.js"
+   
+   TO:
+   "js_library": "https://raw.githubusercontent.com/YOUR-USERNAME/looker-studio-viz/main/main.js"
+   
+   AND:
+   
+   FROM:
+   "js_library": "https://your-username.github.io/repo-name/styles.js"
+   
+   TO:
+   "js_library": "https://raw.githubusercontent.com/YOUR-USERNAME/looker-studio-viz/main/styles.js"
+
+5. ADD TO LOOKER STUDIO
+   - Copy your manifest URL
+   - Go to Looker Studio
+   - Click "Resources" > "Manage Community Visualizations"
+   - Click "Add Community Visualization"
+   - Paste: https://raw.githubusercontent.com/YOUR-USERNAME/looker-studio-viz/main/manifest.json
+   - Click "Submit"
+
+═══════════════════════════════════════════════════════════════
+EXAMPLE URLs
+═══════════════════════════════════════════════════════════════
+
+If your GitHub username is "johndoe" and repo is "my-viz":
+
+✅ GOOD URLs (Use these):
+https://raw.githubusercontent.com/johndoe/my-viz/main/manifest.json
+https://raw.githubusercontent.com/johndoe/my-viz/main/main.js
+https://raw.githubusercontent.com/johndoe/my-viz/main/styles.js
+
+❌ BAD URLs (Don't use these):
+https://github.com/johndoe/my-viz/blob/main/manifest.json
+https://github.com/johndoe/my-viz/blob/main/main.js
+https://github.com/johndoe/my-viz/blob/main/styles.js
+
+═══════════════════════════════════════════════════════════════
+WHY BLOB URLs DON'T WORK
+═══════════════════════════════════════════════════════════════
+
+Blob URLs return HTML pages, not raw files.
+Looker Studio needs to read the actual JSON and JavaScript files.
+
+RAW URLS return the file content directly.
+That's why they work!
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Problem: "Please enter a valid manifest path"
+Solution: Use raw.githubusercontent.com NOT github.com/.../blob/...
+
+Problem: "Failed to load"
+Solution: 
+  1. Check repository is PUBLIC
+  2. Verify file names are correct
+  3. Test URLs in browser first
+
+Problem: Visualization doesn't render
+Solution:
+  1. Check browser console for errors
+  2. Verify all 3 files are accessible
+  3. Make sure URLs in manifest.json are correct
+
+═══════════════════════════════════════════════════════════════
+NEED MORE HELP?
+═══════════════════════════════════════════════════════════════
+
+See the other files in this folder:
+- QUICK_START.md - Step by step guide
+- DEPLOYMENT_GUIDE.md - Detailed deployment options
+- README.md - General information
+
+═══════════════════════════════════════════════════════════════
+

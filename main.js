@@ -1,174 +1,154 @@
 /**
  * Main JavaScript file for Custom Looker Studio Visualization
- * This is the entry point for your custom visualization
+ * This follows the Looker Studio Community Visualization API
  */
 
-'use strict';
-
-/**
- * Initialize the visualization
- * @param {Object} data - Data from Looker Studio
- */
-function initialize(data) {
-  console.log('Initializing custom visualization...', data);
+(function() {
+  'use strict';
   
-  // Get the container element
-  const container = document.getElementById('viz-container');
-  
-  if (!container) {
-    console.error('Container element not found');
-    return;
-  }
-  
-  // Clear any existing content
-  container.innerHTML = '';
-  
-  // Check if data exists and has content
-  if (!data || !data.tables || !data.tables.DEFAULT) {
-    container.innerHTML = '<p>No data available</p>';
-    return;
-  }
-  
-  // Get the table data
-  const table = data.tables.DEFAULT;
-  
-  // Process and render the data
-  renderVisualization(table, container);
-}
-
-/**
- * Render the visualization based on the data
- * @param {Object} table - Table data from Looker Studio
- * @param {HTMLElement} container - Container element to render into
- */
-function renderVisualization(table, container) {
-  // Extract dimensions and metrics
-  const dimensions = getDimensions(table);
-  const metrics = getMetrics(table);
-  
-  // Create a simple chart (you can customize this)
-  const canvas = document.createElement('div');
-  canvas.id = 'chart-canvas';
-  canvas.style.width = '100%';
-  canvas.style.height = '400px';
-  canvas.style.border = '1px solid #ccc';
-  canvas.style.padding = '20px';
-  canvas.style.backgroundColor = '#f9f9f9';
-  
-  // Add a title
-  const title = document.createElement('h3');
-  title.textContent = 'Custom Visualization';
-  title.style.marginBottom = '20px';
-  title.style.color = '#333';
-  canvas.appendChild(title);
-  
-  // Display data in a table format
-  const dataTable = createDataTable(table);
-  canvas.appendChild(dataTable);
-  
-  container.appendChild(canvas);
-}
-
-/**
- * Get dimensions from table data
- * @param {Object} table - Table data
- * @returns {Array} Array of dimension data
- */
-function getDimensions(table) {
-  const dimensions = [];
-  
-  if (table && table[0]) {
-    // Iterate through the table rows
-    for (let i = 0; i < table.length; i++) {
-      const row = table[i];
-      dimensions.push(row);
-    }
-  }
-  
-  return dimensions;
-}
-
-/**
- * Get metrics from table data
- * @param {Object} table - Table data
- * @returns {Array} Array of metric data
- */
-function getMetrics(table) {
-  const metrics = [];
-  
-  if (table && table[0]) {
-    // Iterate through the table rows
-    for (let i = 0; i < table.length; i++) {
-      const row = table[i];
-      metrics.push(row);
-    }
-  }
-  
-  return metrics;
-}
-
-/**
- * Create a data table for display
- * @param {Object} table - Table data
- * @returns {HTMLElement} Table element
- */
-function createDataTable(table) {
-  const tableElement = document.createElement('table');
-  tableElement.style.width = '100%';
-  tableElement.style.borderCollapse = 'collapse';
-  
-  // Get the first row to determine columns
-  if (!table || table.length === 0) {
-    const noDataRow = tableElement.insertRow();
-    const cell = noDataRow.insertCell();
-    cell.colSpan = 2;
-    cell.textContent = 'No data available';
-    cell.style.textAlign = 'center';
-    cell.style.padding = '20px';
-    return tableElement;
-  }
-  
-  // Create header row (simplified - you may need to adjust based on your data structure)
-  const headerRow = tableElement.insertRow();
-  const headerCell1 = headerRow.insertCell();
-  headerCell1.textContent = 'Data Column 1';
-  headerCell1.style.backgroundColor = '#4CAF50';
-  headerCell1.style.color = 'white';
-  headerCell1.style.padding = '10px';
-  headerCell1.style.border = '1px solid #ddd';
-  
-  const headerCell2 = headerRow.insertCell();
-  headerCell2.textContent = 'Data Column 2';
-  headerCell2.style.backgroundColor = '#4CAF50';
-  headerCell2.style.color = 'white';
-  headerCell2.style.padding = '10px';
-  headerCell2.style.border = '1px solid #ddd';
-  
-  // Add sample rows (you'll need to adapt this to your actual data structure)
-  for (let i = 0; i < Math.min(table.length, 5); i++) {
-    const row = tableElement.insertRow();
-    const cell1 = row.insertCell();
-    cell1.textContent = `Row ${i + 1}`;
-    cell1.style.padding = '8px';
-    cell1.style.border = '1px solid #ddd';
+  // Callback for Looker Studio to initialize the visualization
+  gdc.lookerstudio.viz.initialize(function(viz) {
     
-    const cell2 = row.insertCell();
-    cell2.textContent = 'Sample Data';
-    cell2.style.padding = '8px';
-    cell2.style.border = '1px solid #ddd';
+    // Create the container
+    const container = document.createElement('div');
+    container.id = 'viz-container';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    container.style.boxSizing = 'border-box';
+    
+    // Add container to the visualization
+    viz.root(container);
+    
+    // Handle rendering when data changes
+    viz.on('render', function() {
+      try {
+        renderVisualization(viz);
+      } catch (error) {
+        console.error('Error rendering visualization:', error);
+        container.innerHTML = '<div style="padding: 20px; color: #d32f2f;">Error rendering visualization: ' + error.message + '</div>';
+      }
+    });
+    
+  });
+  
+  /**
+   * Render the visualization
+   * @param {Object} viz - Looker Studio visualization instance
+   */
+  function renderVisualization(viz) {
+    const data = viz.getData();
+    const config = viz.getConfig();
+    const container = document.getElementById('viz-container');
+    
+    if (!container) {
+      console.error('Container not found');
+      return;
+    }
+    
+    // Clear previous content
+    container.innerHTML = '';
+    
+    // Check if data is available
+    if (!data || !data.tables || !data.tables.DEFAULT || data.tables.DEFAULT.length === 0) {
+      container.innerHTML = '<div style="padding: 20px; text-align: center; color: #666; font-family: Arial, sans-serif;">No data available</div>';
+      return;
+    }
+    
+    // Get the table data
+    const table = data.tables.DEFAULT;
+    
+    // Create visualization content
+    createVisualization(table, container, config);
   }
   
-  return tableElement;
-}
-
-// Export functions for use
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    initialize,
-    renderVisualization,
-    getDimensions,
-    getMetrics,
-    createDataTable
-  };
-}
-
+  /**
+   * Create the actual visualization
+   * @param {Array} table - Table data from Looker Studio
+   * @param {HTMLElement} container - Container element
+   * @param {Object} config - Configuration options
+   */
+  function createVisualization(table, container, config) {
+    // Create main visualization container
+    const vizCard = document.createElement('div');
+    vizCard.style.cssText = 'padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 100%; box-sizing: border-box;';
+    
+    // Add title
+    const title = document.createElement('h2');
+    title.textContent = 'Custom Visualization';
+    title.style.cssText = 'margin: 0 0 20px 0; color: white; font-family: Arial, sans-serif; font-size: 24px; font-weight: 500;';
+    vizCard.appendChild(title);
+    
+    // Create data display
+    const dataDisplay = document.createElement('div');
+    dataDisplay.style.cssText = 'background: white; border-radius: 4px; padding: 15px; overflow-x: auto;';
+    
+    // Create a simple data table
+    const tableElement = document.createElement('table');
+    tableElement.style.cssText = 'width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;';
+    
+    // Get column names from the first row
+    if (table.length > 0) {
+      const firstRow = table[0];
+      const headers = Object.keys(firstRow);
+      
+      // Create header row
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      
+      headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        th.style.cssText = 'padding: 10px; background-color: #f5f5f5; font-weight: bold; text-align: left; border-bottom: 2px solid #ddd;';
+        headerRow.appendChild(th);
+      });
+      
+      thead.appendChild(headerRow);
+      tableElement.appendChild(thead);
+      
+      // Create data rows
+      const tbody = document.createElement('tbody');
+      table.slice(0, 10).forEach(row => { // Limit to 10 rows for display
+        const tr = document.createElement('tr');
+        
+        headers.forEach(header => {
+          const td = document.createElement('td');
+          td.textContent = row[header] || '-';
+          td.style.cssText = 'padding: 8px; border-bottom: 1px solid #ddd;';
+          tr.appendChild(td);
+        });
+        
+        tr.style.transition = 'background-color 0.2s';
+        tr.addEventListener('mouseenter', function() {
+          this.style.backgroundColor = '#f5f5f5';
+        });
+        tr.addEventListener('mouseleave', function() {
+          this.style.backgroundColor = 'transparent';
+        });
+        
+        tbody.appendChild(tr);
+      });
+      
+      tableElement.appendChild(tbody);
+    }
+    
+    dataDisplay.appendChild(tableElement);
+    vizCard.appendChild(dataDisplay);
+    
+    // Add data summary
+    const summary = document.createElement('div');
+    summary.style.cssText = 'margin-top: 15px; color: white; font-family: Arial, sans-serif; font-size: 14px;';
+    summary.textContent = `Total rows: ${table.length}`;
+    vizCard.appendChild(summary);
+    
+    container.appendChild(vizCard);
+  }
+  
+  // Handle exports if needed
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+      renderVisualization: renderVisualization,
+      createVisualization: createVisualization
+    };
+  }
+  
+})();

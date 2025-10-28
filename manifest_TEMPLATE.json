@@ -36,10 +36,10 @@
     }
   ],
   "visualization": {
-    "js_library": "https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/main.js"
+    "js_library": "REPLACE_WITH_YOUR_MAIN_JS_URL"
   },
   "style": {
-    "js_library": "https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/styles.js"
+    "js_library": "REPLACE_WITH_YOUR_STYLES_JS_URL"
   }
 }
 

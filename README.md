@@ -10,14 +10,27 @@ This folder contains a custom community visualization for Looker Studio (formerl
 - **index.html** - HTML structure for the visualization (used for testing)
 - **README.md** - This file
 
+## ⚠️ IMPORTANT: Why Your Screenshot Error Happened
+
+The error "Please enter a valid manifest path" occurs when you use a GitHub **blob URL** (`github.com/.../blob/...`). 
+
+❌ **DON'T USE**: `https://github.com/user/repo/blob/main/manifest.json`  
+✅ **USE INSTEAD**: `https://raw.githubusercontent.com/user/repo/main/manifest.json`
+
 ## Setup Instructions
 
-### 1. Deploy to Google Cloud Storage or GitHub
+### 1. Deploy to GitHub (Easiest Option)
 
-You need to host your visualization files in a publicly accessible location:
+Upload your files to a PUBLIC GitHub repository and use raw URLs:
+- Upload: manifest.json, main.js, styles.js to GitHub
+- Use URLs like: `https://raw.githubusercontent.com/YOUR-USERNAME/REPO-NAME/main/manifest.json`
+
+### 2. Deploy to Other Services
+
+You can also host on:
 - Google Cloud Storage bucket
-- GitHub Pages
-- Any static web hosting service
+- GitHub Pages (enabled in repository settings)
+- Netlify, Vercel, or any static web hosting service
 
 ### 2. Register in Looker Studio
 
