@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Community Visualization</title>
+  
+  <!-- Include Looker Studio Community Connector SDK -->
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  
+  <!-- Your custom styles -->
+  <script src="styles.js"></script>
+</head>
+<body>
+  <div id="viz-container">
+    <!-- Visualization will be rendered here -->
+  </div>
+  
+  <!-- Your custom visualization script -->
+  <script src="main.js"></script>
+  
+  <script>
+    // Initialize visualization when page loads
+    window.addEventListener('load', function() {
+      // This would typically be called by Looker Studio
+      // For testing purposes, we'll call it with mock data
+      console.log('Page loaded, ready for visualization');
+      
+      // Example initialization (remove in production)
+      // initialize({
+      //   tables: {
+      //     DEFAULT: []
+      //   }
+      // });
+    });
+  </script>
+</body>
+</html>
+
