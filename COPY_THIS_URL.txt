@@ -1,0 +1,28 @@
+═══════════════════════════════════════════════════
+COPY THIS EXACT URL INTO LOOKER STUDIO:
+═══════════════════════════════════════════════════
+
+https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/manifest.json
+
+═══════════════════════════════════════════════════
+STEPS IN LOOKER STUDIO:
+═══════════════════════════════════════════════════
+
+1. Open Looker Studio
+2. Go to: Resources > Manage Community Visualizations
+3. Click: Add Community Visualization
+4. In the "Manifest path" field, paste the URL above
+5. Click the blue "Submit" button
+
+═══════════════════════════════════════════════════
+VERIFICATION:
+═══════════════════════════════════════════════════
+
+All files are live and verified:
+✅ manifest.json: https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/manifest.json
+✅ main.js: https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/main.js
+✅ styles.js: https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/styles.js
+
+═══════════════════════════════════════════════════
+
+

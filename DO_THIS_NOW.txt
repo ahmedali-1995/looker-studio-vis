@@ -1,0 +1,66 @@
+═══════════════════════════════════════════════════════════════
+⚠️ THE PROBLEM: GitHub Raw URLs Don't Work With Looker Studio
+═══════════════════════════════════════════════════════════════
+
+The error happens because GitHub raw URLs have CORS restrictions.
+
+═══════════════════════════════════════════════════════════════
+✅ SOLUTION: Enable GitHub Pages
+═══════════════════════════════════════════════════════════════
+
+STEP 1: Enable GitHub Pages
+-----------------------
+1. Go to: https://github.com/ahmedali-1995/looker-studio-vis/settings/pages
+2. Under "Source", select "main" branch
+3. Click "Save"
+
+STEP 2: Upload the Updated Files
+--------------------------------
+Upload these 3 files to your GitHub repo (replace existing):
+- manifest.json (NEW - from Looker_Studio_Custom_Viz folder)
+- main.js
+- styles.js
+
+STEP 3: Wait 2-3 Minutes
+------------------------
+GitHub needs time to deploy your pages
+
+STEP 4: Use This URL in Looker Studio
+--------------------------------------
+https://ahmedali-1995.github.io/looker-studio-vis/manifest.json
+
+═══════════════════════════════════════════════════════════════
+🧪 TEST YOUR URLS (Before Adding to Looker Studio)
+═══════════════════════════════════════════════════════════════
+
+Test these in your browser first:
+
+1. Manifest:
+https://ahmedali-1995.github.io/looker-studio-vis/manifest.json
+   → Should show JSON (not HTML error)
+
+2. Main.js:
+https://ahmedali-1995.github.io/looker-studio-vis/main.js
+   → Should show JavaScript code
+
+3. Styles.js:
+https://ahmedali-1995.github.io/looker-studio-vis/styles.js
+   → Should show JavaScript code
+
+If ALL 3 work → You're ready to add to Looker Studio!
+If any fail → Wait longer for GitHub Pages to deploy
+
+═══════════════════════════════════════════════════════════════
+📋 QUICK CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+☐ Enabled GitHub Pages (main branch)
+☐ Updated manifest.json with GitHub Pages URLs
+☐ Uploaded all 3 files to GitHub
+☐ Waited 2-3 minutes
+☐ Tested URLs in browser (all 3 work)
+☐ Copy-pasted this URL to Looker Studio:
+   https://ahmedali-1995.github.io/looker-studio-vis/manifest.json
+
+═══════════════════════════════════════════════════════════════
+

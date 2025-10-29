@@ -1,45 +1,23 @@
 {
-  "manifest": {
-    "name": "Custom Community Visualization",
-    "version": "1.0.0",
-    "description": "A custom community visualization for Looker Studio",
-    "author": {
-      "name": "Your Name",
-      "email": "your.email@example.com"
-    },
-    "api_version": "1.0"
-  },
-  "data": [
+  "name": "Custom Community Visualization",
+  "logoUrl": "",
+  "organization": "ahmedali-1995",
+  "organizationUrl": "https://github.com/ahmedali-1995",
+  "termsOfServiceUrl": "",
+  "privacyPolicyUrl": "",
+  "supportUrl": "https://github.com/ahmedali-1995/looker-studio-vis",
+  "description": "A custom visualization for Looker Studio",
+  "devMode": false,
+  "components": [
     {
-      "id": "myData",
-      "label": "My Data",
-      "elements": [
-        {
-          "id": "dimension",
-          "type": "DIMENSION",
-          "label": "Dimension",
-          "options": {
-            "min": 1,
-            "max": 10
-          }
-        },
-        {
-          "id": "metric",
-          "type": "METRIC",
-          "label": "Metric",
-          "options": {
-            "min": 1,
-            "max": 10
-          }
-        }
-      ]
+      "id": "myCustomViz",
+      "name": "My Custom Viz",
+      "description": "Custom Looker Studio visualization",
+      "iconUrl": "",
+      "resource": {
+        "js": "https://ahmedali-1995.github.io/looker-studio-vis/main.js",
+        "config": "https://ahmedali-1995.github.io/looker-studio-vis/styles.js"
+      }
     }
-  ],
-  "visualization": {
-    "js_library": "https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/main.js"
-  },
-  "style": {
-    "js_library": "https://raw.githubusercontent.com/ahmedali-1995/looker-studio-vis/main/styles.js"
-  }
+  ]
 }
-
